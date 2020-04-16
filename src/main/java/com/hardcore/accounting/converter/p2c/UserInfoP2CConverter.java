@@ -11,18 +11,18 @@ public class UserInfoP2CConverter extends Converter<UserInfo, com.hardcore.accou
     @Override
     protected com.hardcore.accounting.model.common.UserInfo doForward(UserInfo userInfo) {
         return com.hardcore.accounting.model.common.UserInfo.builder()
-                .id(userInfo.getId())
-                .username(userInfo.getUsername())
-                .password(userInfo.getPassword())
-                .build();
+                                                            .id(userInfo.getId())
+                                                            .username(userInfo.getUsername())
+                                                            .password(userInfo.getPassword())
+                                                            .build();
     }
 
     @Override
     protected UserInfo doBackward(com.hardcore.accounting.model.common.UserInfo userInfo) {
         return UserInfo.builder()
-                .id(userInfo.getId())
-                .username(userInfo.getUsername())
-                .password(userInfo.getPassword())
-                .build();
+                        .id(userInfo.getId())
+                        .username(userInfo.getUsername())
+                        .password(userInfo.getPassword())
+                        .build();
     }
 }

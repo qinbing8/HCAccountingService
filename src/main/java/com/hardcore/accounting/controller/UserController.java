@@ -26,7 +26,7 @@ public class UserController {
         this.userInfoC2SConverter = userInfoConverter;
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public UserInfo getUserInfoByUserId(@PathVariable("id") Long userId) {
         log.debug("Get user info by user id {}", userId);
         val userInfo = userInfoManager.getUserInfoByUserId(userId);

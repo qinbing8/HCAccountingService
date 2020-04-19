@@ -1,11 +1,13 @@
 package com.hardcore.accounting.controller;
 
 import com.hardcore.accounting.converter.c2s.UserInfoC2SConverter;
+import com.hardcore.accounting.exception.InvalidParameterException;
 import com.hardcore.accounting.manager.UserInfoManager;
 import com.hardcore.accounting.model.service.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +29,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserInfo getUserInfoByUserId(@PathVariable("id") Long userId) {
+    public ResponseEntity<UserInfo> getUserInfoByUserId(@PathVariable("id") Long userId) {
         log.debug("Get user info by user id {}", userId);
-        val userInfo = userInfoManager.getUserInfoByUserId(userId);
+        if (userId == null || userId <= 0) {
+            throw new InvalidParameterException(String.format("The user id %s is invalid", userId));
+        }
 
-        return userInfoC2SConverter.convert(userInfo);
+        val userInfo = userInfoManager.getUserInfoByUserId(userId);
+        return ResponseEntity.ok(userInfoC2SConverter.convert(userInfo));
     }
 }

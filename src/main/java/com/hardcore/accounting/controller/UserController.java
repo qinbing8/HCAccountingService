@@ -4,6 +4,7 @@ import com.hardcore.accounting.converter.c2s.UserInfoC2SConverter;
 import com.hardcore.accounting.exception.InvalidParameterException;
 import com.hardcore.accounting.manager.UserInfoManager;
 import com.hardcore.accounting.model.service.UserInfo;
+
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/users")
+@RequestMapping("v1.0/users")
 @Slf4j
 public class UserController {
 
@@ -28,6 +29,11 @@ public class UserController {
         this.userInfoC2SConverter = userInfoConverter;
     }
 
+    /**
+     * Get user information by specific user id.
+     * @param userId the user id
+     * @return user info response entity.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UserInfo> getUserInfoByUserId(@PathVariable("id") Long userId) {
         log.debug("Get user info by user id {}", userId);
